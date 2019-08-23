@@ -1,110 +1,125 @@
 parameters:
-  bigip_image: test-bigip-13
-  bigip_flavor: f5.medium
+  bigip_image: F5_KVM ##<To be created when image upload take place e.g BIG-IP-13.1>
+  bigip_flavor: m1.medium ##<Name of existed flavor with 2vCPU, 4GB memory and 40GB disk space>
   use_config_drive: true
-  bigip_os_ssh_key: sshKeyName
-  bigip_admin_pwd: adminPwd
-  bigip_root_pwd: rootPwd
-  bigip_license_key: baseLicenseKey
-  bigip_licensing_type: BYOL
-  bigip_addon_license_keys:
-    - addonKey1
-    - addonKey2
+  bigip_os_ssh_key: mvas_dev_keys ##<Key Pair which will be used by F5 for SSH Access. Could be created any time but before deployment e.g. F5-SSH-Key-pair>
+  bigip_admin_pwd: admin ##<Password for F5 admin web access>
+  bigip_root_pwd: default ##<Password for F5 root ssh access>
+  bigip_licensing_type: NO_LIC ##License will applied later on
   bigip_modules:
     - ltm:nominal
-  mgmt_network: mgmt_net
-  mgmt_security_group_name: mgmt-secgroup-nnic
-  bigip_nic_count: 5
+
+  mgmt_network: mvas_mt_mco1_oam
+
+  mgmt_security_group_name: mvas_mt_mco1_oam
+
+  bigip_nic_count: 4
+
+
   network_vlan_names:
-    - dev-data1
-    - dev-data2
-    - dev-data3
-    - dev-data4
-    - dev-data5
+    - mvas_mt_mco1_mmsc1_traf_svc1  #mvas_mt_mmsc1_traf_svc1
+    - mvas_mt_mco1_mmsc1_traf_ext_svc1 #mvas_mt_mmsc1_traf_ext_svc1
+    - mvas_mt_mco1_m2m1 #mvas_mt_mmsc1_m2m1
+    - mvas_mt_mco1_mmsc1_inet_svc1 #mvas_mt_mmsc1_inet_svc1
+#    - mvas_mt_mco1_mmsc1_inet_ext_svc1 #
+
   network_vlan_subnets:
-    - dev-data1-subnet
-    - dev-data2-subnet;dev-data2-subnet
-    - dev-data3-subnet1;dev-data3-subnet2
-    - dev-data4-subnet;dev-data4-subnet;dev-data4-subnet
-    - dev-data5-subnet
+    - mvas_mt_mco1_mmsc1_traf_svc1_ipv4 #mvas_mt_mmsc1_traf_svc1_ipv4
+    - mvas_mt_mco1_mmsc1_traf_ext_svc1_ipv4 #mvas_mt_mmsc1_traf_ext_svc1_ipv4
+    - mvas_mt_mco1_m2m1_ipv4 #mvas_mt_mmsc1_m2m1_ipv4
+    - mvas_mt_mco1_mmsc1_inet_svc1_ipv4 #mvas_mt_mmsc1_inet_svc1_ipv4
+#    - mvas_mt_mco1_mmsc1_inet_ext_svc1_ipv4
+
   network_vlan_security_group_rules:
     security_group_rules:
-      - rules:
-          - protocol: icmp
-            remote_ip_prefix: 0.0.0.0/0
-          - protocol: tcp
-            remote_ip_prefix: 0.0.0.0/0
-          - protocol: udp
-            remote_ip_prefix: 0.0.0.0/0
-      - rules:
-          - protocol: icmp
-            remote_ip_prefix: 0.0.0.0/0
-          - protocol: tcp
-            remote_ip_prefix: 0.0.0.0/0
-          - protocol: udp
-            remote_ip_prefix: 0.0.0.0/0
-      - rules:
-          - protocol: icmp
-            direction: egress
-          - protocol: tcp
-            direction: egress
-          - protocol: udp
-            direction: egress
-      - rules:
-          - protocol: icmp
-            direction: ingress
-          - protocol: icmp
-            direction: egress
-          - protocol: tcp
-            direction: ingress
-          - protocol: tcp
-            direction: egress
-          - protocol: udp
-            direction: ingress
-          - protocol: udp
-            direction: egress
-      - rules:
-          - protocol: tcp
-            remote_ip_prefix: 0.0.0.0/0
-            port_range_min: 22
-            port_range_max: 22
+    #secgroup-0-mvas_mt_mmsc1_traf_svc1
+    - rules:
+        - protocol: icmp
+          direction: ingress
+        - protocol: icmp
+          direction: egress
+        - protocol: tcp
+          direction: ingress
+        - protocol: tcp
+          direction: egress
+        - protocol: udp
+          direction: ingress
+        - protocol: udp
+          direction: egress
+    #secgroup-1-mvas_mt_mmsc1_traf_ext_svc1
+    - rules:
+        - protocol: icmp
+          direction: ingress
+        - protocol: icmp
+          direction: egress
+        - protocol: tcp
+          direction: ingress
+        - protocol: tcp
+          direction: egress
+        - protocol: udp
+          direction: ingress
+        - protocol: udp
+          direction: egress
+    #secgroup-2-mvas_mt_mmsc1_m2m1
+    - rules:
+        - protocol: icmp
+          direction: ingress
+        - protocol: icmp
+          direction: egress
+        - protocol: tcp
+          direction: ingress
+        - protocol: tcp
+          direction: egress
+        - protocol: udp
+          direction: ingress
+        - protocol: udp
+          direction: egress
+    #secgroup-3-f5_mvas_mt_mmsc1_inet_svc1
+    - rules:
+        - protocol: icmp
+          direction: ingress
+        - protocol: icmp
+          direction: egress
+        - protocol: tcp
+          direction: ingress
+        - protocol: tcp
+          direction: egress
+        - protocol: udp
+          direction: ingress
+        - protocol: udp
+          direction: egress
+
   bigip_vlan_mtus:
     - 1400
-    - 1450
     - 1400
-    - 1410
-    - 1460
-  bigip_vlan_tags:
-    - 100
-    - 200
-    - 300
-    - 400
-    - 500
+    - 1400
+    - 1400
+
   bigip_vlan_names:
-    - data1
-    - data2
-    - data3
-    - data4
-    - data5
+    - traffic
+    - traffic_ext
+    - m2m
+    - dmz_traffic
+
   bigip_self_port_lockdowns:
-    -
-    - allow-default;tcp:8080
     - allow-none
-    -
-    - tcp:22;tcp:443
+    - allow-none
+    - allow-default
+    - allow-none
+
   libs_proxy_protocol: http
-  libs_proxy_host: 10.10.10.110
-  libs_proxy_port: 8080
-  libs_proxy_auth: username:password
-  libs_proxy_addtl_opts: -L
-  os_heat_wc_notify_options: -k -v
+  libs_proxy_host: 192.168.8.34
+  libs_proxy_port: 3128
   bigip_remote_hosts_names:
-    - host1.mytest.com
-    - heatapi.mycloud.com
+    - ic-hrzagt1
   bigip_remote_hosts_ips:
-    - 192.168.1.111
-    - 192.168.1.
-  bigip_timezone: GMT
+    - 10.235.28.252
+  bigip_timezone: UTC
+  bigip_servers_dns:
+    - 192.168.8.34
+  bigip_servers_ntp:
+    - 10.235.9.253
+    - 10.235.9.254
 resource_registry:
   F5::BigIP::OverrideDefaultConfig: ../../../../../configs/override_default_config.yaml
   F5::BigIP::OnboardingLibs: ../../../../../configs/onboarding_libs.yaml
