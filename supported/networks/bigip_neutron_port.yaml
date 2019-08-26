@@ -28,8 +28,9 @@ resources:
       security_groups: [{ get_param: [ security_groups, { get_param: index}] }]
       admin_state_up: true
       allowed_address_pairs:
-        - ip_address: 0.0.0.0/0
-        - ip_address: ::/0
+        - ip_address: 1.1.1.100/32
+#        - ip_address: 0.0.0.0/0 Default value
+        # - ip_address: ::/0
       fixed_ips:
         repeat:
           for_each:
