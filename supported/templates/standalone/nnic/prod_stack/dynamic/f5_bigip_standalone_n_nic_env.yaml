@@ -13,11 +13,10 @@ parameters:
 
   mgmt_security_group_name: mvas_mt_mco1_oam
 
-  bigip_nic_count: 6
+  bigip_nic_count: 5
 
 
   network_vlan_names:
-    - mvas_mt_mco1_oam
     - mvas_mt_mco1_mmsc1_traf_svc1  #mvas_mt_mmsc1_traf_svc1
     - mvas_mt_mco1_mmsc1_traf_ext_svc1 #mvas_mt_mmsc1_traf_ext_svc1
     - mvas_mt_mco1_m2m1 #mvas_mt_mmsc1_m2m1
@@ -25,7 +24,6 @@ parameters:
     - mvas_mt_mco1_mmsc1_inet_ext_svc1 # mvas_mt_mco1_mmsc1_inet_ext_svc1 #
 
   network_vlan_subnets:
-    - mvas_mt_mco1_oam_ipv4
     - mvas_mt_mco1_mmsc1_traf_svc1_ipv4 #mvas_mt_mmsc1_traf_svc1_ipv4
     - mvas_mt_mco1_mmsc1_traf_ext_svc1_ipv4 #mvas_mt_mmsc1_traf_ext_svc1_ipv4
     - mvas_mt_mco1_m2m1_ipv4 #mvas_mt_mmsc1_m2m1_ipv4
@@ -35,19 +33,6 @@ parameters:
   network_vlan_security_group_rules:
     security_group_rules:
     #secgroup-0-mvas_mt_mmsc1_traf_svc1
-    - rules:
-        - protocol: icmp
-          direction: ingress
-        - protocol: icmp
-          direction: egress
-        - protocol: tcp
-          direction: ingress
-        - protocol: tcp
-          direction: egress
-        - protocol: udp
-          direction: ingress
-        - protocol: udp
-          direction: egress
     - rules:
         - protocol: icmp
           direction: ingress
@@ -123,11 +108,9 @@ parameters:
     - 1400
     - 1400
     - 1400
-    - 1400
 
 
   bigip_vlan_names:
-    - oam
     - traffic
     - traffic_ext
     - m2m
@@ -135,7 +118,6 @@ parameters:
     - inet_traffic_ext
 
   bigip_self_port_lockdowns:
-    - allow-none
     - allow-none
     - allow-none
     - allow-default
