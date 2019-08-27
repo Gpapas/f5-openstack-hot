@@ -1,5 +1,5 @@
 parameters:
-  bigip_image: F5_KVM ##<To be created when image upload take place e.g BIG-IP-13.1>
+  bigip_image: BIGIP-LTM ##<To be created when image upload take place e.g BIG-IP-13.1>
   bigip_flavor: m1.medium ##<Name of existed flavor with 2vCPU, 4GB memory and 40GB disk space>
   use_config_drive: true
   bigip_os_ssh_key: mvas_dev_keys ##<Key Pair which will be used by F5 for SSH Access. Could be created any time but before deployment e.g. F5-SSH-Key-pair>
