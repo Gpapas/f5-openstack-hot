@@ -129,6 +129,8 @@ parameters:
   libs_proxy_port: 3128
   bigip_remote_hosts_names:
     - ic-hrzagt1
+  libs_proxy_addtl_opts: -L
+  os_heat_wc_notify_options: -k -v
   bigip_remote_hosts_ips:
     - 10.235.28.252
   bigip_timezone: UTC
