@@ -124,7 +124,7 @@ parameters:
     - allow-none
     - allow-none
 
-  libs_proxy_protocol: http
+  libs_proxy_protocol: https
   libs_proxy_host: 192.168.8.34
   libs_proxy_port: 3128
   bigip_remote_hosts_names:
